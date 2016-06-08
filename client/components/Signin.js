@@ -14,7 +14,7 @@ class Signin extends Component {
       value: 'Sign In Page'
     };
     $.ajax({
-      url: 'http://localhost:8000',
+      url: 'http://localhost:8000/signin',
       datatype: 'json',
       data: data,
       type: 'POST',

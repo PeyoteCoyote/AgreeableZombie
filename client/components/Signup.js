@@ -20,7 +20,7 @@ class Signup extends Component {
       value: 'Sign Up Page'
     };
     $.ajax({
-      url: 'http://localhost:8000',
+      url: 'http://localhost:8000/signup',
       type: 'POST',
       dataType: 'json',
       data: data,

@@ -44,8 +44,15 @@ app.get('/', (req, res) => {
 });
 
 //Signup page
-app.post('/', (req, res) => {
-  console.log('SERVER FILE: REQ.BODY', req.body);
+app.post('/signup', (req, res) => {
+  console.log('SERVER FILE (SIGNUP): REQ.BODY', req.body);
+  db.one('')
+  res.json(req.body);
+});
+
+//Signin page
+app.post('/signin', (req, res) => {
+  console.log('SERVER FILE (SIGNIN): REQ.BODY', req.body);
   res.json(req.body);
 });
 
