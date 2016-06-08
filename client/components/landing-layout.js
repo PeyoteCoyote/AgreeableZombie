@@ -18,7 +18,7 @@ class LandingLayout extends Component{
     this.openSignup(!this.state.signup);
   }
   render() {
-    var sidebar = this.state.signup ? <Signup fn={this.handleClick.bind(this)} /> : <Signin fn={this.handleClick.bind(this)} />;
+    var sidebar = this.state.signup ? < Signup fn={this.handleClick.bind(this)} /> : < Signin fn={this.handleClick.bind(this)} />;
     return (
       <div className="Landing">
         <header className="search-header">
