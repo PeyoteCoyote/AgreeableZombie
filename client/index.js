@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './components/App.js';
+// import App from './components/App.js';
+import Router from './router';
 
 // Check if browser has WebRTC, WebRTC is required for webcam/Twilio to work
 if (!navigator.webkitGetUserMedia && !navigator.mozGetUserMedia) {
@@ -9,7 +10,8 @@ if (!navigator.webkitGetUserMedia && !navigator.mozGetUserMedia) {
 
 var render = function() {
   ReactDOM.render(
-    <App/>,
+    // <App/>
+    Router,
     document.getElementById('app')
   );
 };
