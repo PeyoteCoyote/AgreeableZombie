@@ -4,7 +4,7 @@
 }
 
 body {
-  background: url(../assets/cartoon-wallpaper.jpg) no-repeat center center fixed; 
+  background: url(../assets/background.jpg) no-repeat center center fixed; 
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -111,6 +111,9 @@ body {
   top: 350px;
 }
 
+.line {
+  height: 10px;
+}
 
 #button-preview {
   border-style: none;
@@ -191,6 +194,30 @@ input {
   margin: 0 auto;
 }
 
+.primary-aside {
+  background-color: yellow;
+  top:0px;
+  right:0px;
+  height: 200px;
+  width: 100px;
+  float: right;
+  -webkit-clip-path: polygon(100% 0, 0 0, 100% 100%);
+  clip-path: polygon(100% 0, 0 0, 100% 100%);
+}
+
+.login-link {
+  margin: 20px;
+  position: absolute;
+  right:0;
+  z-index:1000;
+}
+.primary-header {
+  margin: 20px;
+  color: white;
+  font-size: 40px;
+  font-family: helvetica;
+  float: left;
+}
 .media-container {
 }
 

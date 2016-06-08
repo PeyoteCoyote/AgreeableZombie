@@ -93,16 +93,9 @@ class App extends React.Component {
             <div id="webcam-features">
               <WebCam conversation={this.state.conversation}/>
             </div>
-            <Logo />
-            <Title bookTitle={this.state.bookTitle} author={this.state.author}/>
             <div id='buttons-with-book'>
-              <div id='left-button'><PrevButton clickHandler={this.onClickPrev.bind(this)}/></div>
-              <div id='right-button'><NextButton clickHandler={this.onClickNext.bind(this)}/></div>
               <div id='center'><Background />
-                <LeftPageText bookData={this.state.bookData} pageCounter={this.state.pageCounter}/>
-                <LeftPageImage bookData={this.state.bookData} pageCounter={this.state.pageCounter}/>
-                <RightPageText bookData={this.state.bookData} pageCounter={this.state.pageCounter}/>
-                <RightPageImage bookData={this.state.bookData} pageCounter={this.state.pageCounter}/>
+              
               </div>
             </div>
             <Canvas />
