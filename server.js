@@ -4,6 +4,11 @@ var app = express();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
 var mongoose = require('mongoose');
+var bodyParser = require('body-parser');
+var pgp = require("pg-promise")(/*options*/);
+var db = pgp("postgres://kentlee:@127.0.0.1:5432/database");
+
+app.use(bodyParser.json());
 
 // configure our server with all the middleware and routing
 require('./server/middleware.js')(app, express);
@@ -38,8 +43,14 @@ app.get('/', (req, res) => {
   res.send('serving up static files!');
 });
 
+//Signup page
+app.post('/', (req, res) => {
+  console.log('SERVER FILE: REQ.BODY', req.body);
+  res.json(req.body);
+});
+
 // Twilio token request
-app.get('/token', function(req, res) {
+app.get('/token', (req, res) => {
     var identity = randomUsername();
 
     // Create an access token
