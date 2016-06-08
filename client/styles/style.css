@@ -195,14 +195,15 @@ input {
 }
 
 .primary-aside {
-  background-color: yellow;
-  top:0px;
-  right:0px;
-  height: 200px;
-  width: 100px;
-  float: right;
-  -webkit-clip-path: polygon(100% 0, 0 0, 100% 100%);
-  clip-path: polygon(100% 0, 0 0, 100% 100%);
+  background-color: #ffd93b;
+  height: 100%;
+  width: 300px;
+  position: absolute;
+  right: 0;
+}
+
+.signup-link{
+  bottom: 0;
 }
 
 .login-link {

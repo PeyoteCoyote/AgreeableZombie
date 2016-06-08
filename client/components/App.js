@@ -16,7 +16,7 @@ import socket from '../../websocket.js';
 import $ from 'jquery';
 
 
-class App extends React.Component {
+class App extends Component {
   constructor(props) {
     super(props);
 
