@@ -14,7 +14,7 @@ import WebCam from './WebCam.js';
 import Canvas from './Canvas.jsx';
 import socket from '../../websocket.js';
 import $ from 'jquery';
-
+import Chatbox from './Chatbox.js';
 
 class App extends Component {
   constructor(props) {
@@ -95,7 +95,7 @@ class App extends Component {
             </div>
             <div id='buttons-with-book'>
               <div id='center'><Background />
-              
+              <Chatbox />
               </div>
             </div>
             <Canvas />

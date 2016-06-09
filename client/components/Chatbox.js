@@ -1,3 +1,6 @@
+import React from 'react';
+
+
 var socket = io();
 var messages = [ {text:"msg1"}, {text:"msg2"} ];
 
@@ -99,5 +102,4 @@ var Message = React.createClass({
     }
 });
 
-
-React.render( <Chatbox />, document.getElementById('container'));
+export default Chatbox;
