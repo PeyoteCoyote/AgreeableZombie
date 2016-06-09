@@ -45,6 +45,7 @@ class Signin extends Component {
         email: this.state.email,
         password: this.state.password
       };
+      
       $.ajax({
         url: 'http://localhost:8000/signin',
         datatype: 'json',

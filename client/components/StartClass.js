@@ -1,10 +1,11 @@
 import React from 'react';
+import { Link } from 'react-router';
 
 const StartClass = React.createClass({
   render: function() {
     return (
       <div>
-        <button className= "startclass">Join a Classroom</button>
+          <Link to = "/classroom" className= "startclass">Join a Classroom</Link>
       </div>
     );
   }

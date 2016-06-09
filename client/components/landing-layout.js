@@ -1,6 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import Signin from './Signin';
 import Signup from './Signup';
+import Landing from './Landing';
 
 class LandingLayout extends Component{
   constructor(props){
@@ -21,16 +22,12 @@ class LandingLayout extends Component{
     var sidebar = this.state.signup ? < Signup fn={this.handleClick.bind(this)} /> : < Signin fn={this.handleClick.bind(this)} />;
     return (
       <div className="Landing">
-        <header className="search-header">
-        </header>
-        <div className="search-results">
-          {this.props.children}
-        </div>
+
+          <Landing />
+
         <div className="primary-aside">
           {sidebar}
         </div>
-        <footer className="search-footer">
-        </footer>
       </div>
     );
   }
