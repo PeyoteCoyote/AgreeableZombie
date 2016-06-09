@@ -6,7 +6,7 @@ var io = require('socket.io')(server);
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 var pgp = require("pg-promise")();
-var db = pgp("postgres://kentlee:@127.0.0.1:5432/classly");
+var db = pgp("postgres://rodaan:@127.0.0.1:5432/classly");
 var bcrypt = require('bcrypt');
 
 var saltRounds = 10;
@@ -48,6 +48,7 @@ app.get('/', (req, res) => {
 
 //Signup page
 app.post('/signup', (req, res) => {
+  console.log('hallo');
   var data = req.body;
   console.log('DATA BEING RECEIVED IN POSTMAN:', data);
   //Check database if the email exists
@@ -89,15 +90,19 @@ app.post('/signup', (req, res) => {
 app.post('/signin', (req, res) => {
   //Check the database for the email and password
   var data = req.body;
+  console.log('data is:',data);
   db.query('SELECT * from students where email = ${email}', {email: data.email})
   .then((database) => {
+    console.log('data found on db is:', database);
     if (database.length > 0) {
       //Compare hashed password with database
       bcrypt.compare(data.password, database[0].password, (err, samePW) => {
         if (err) {
           console.log('Error in comparing bcrypt passwords', err);
         }
+        console.log('Matching password');
         if (samePW) {
+          console.log('Match successful');
           res.json({response: 'match successful'});
         } else {
           res.json({response: 'invalid email/password combination'});    
