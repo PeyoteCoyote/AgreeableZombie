@@ -4,18 +4,33 @@
 }
 
 body {
-  background: url(../assets/background.jpg) no-repeat center center fixed; 
+  background: url(../assets/background.jpg) no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
   margin: 0;
-  font-family: TravelingTypewriter, sans-serif;
+  font-family: Helvetica, sans-serif;
 }
 .header {
   /*background-color: #d6c6a7;*/
   text-align: center;
 }
+h1 {
+  color: white;
+}
+span.title-underline {
+  width: 200px;
+  height: 10px;
+  background-color: yellow;
+}
+
+.home-page {
+  float:left;
+  margin-top: 250px;
+  margin-left: 150px;
+}
+
 .logo {
   margin: 10px 0px 0px 0px;
   position: absolute;
@@ -136,7 +151,7 @@ body {
   font-size: 18px;
   font-family: TravelingTypewriter, sans-serif;
   position: absolute;
-  top: 80px; 
+  top: 80px;
   left: 20px;
 
 }
@@ -147,7 +162,7 @@ body {
 }
 
 #invite-to {
-  width: 300px; 
+  width: 300px;
   height: 39px;
   position: absolute;
   top: 79px;
@@ -165,25 +180,25 @@ input {
 }
 
 ::-webkit-input-placeholder {
-  font-family: TravelingTypewriter, sans-serif;  
+  font-family: TravelingTypewriter, sans-serif;
   font-size: 18px;
   text-align: center;
 }
 
 :-moz-placeholder { /* Firefox 18- */
-  font-family: TravelingTypewriter, sans-serif;  
+  font-family: TravelingTypewriter, sans-serif;
   font-size: 18px;
   text-align: center;
 }
 
 ::-moz-placeholder {  /* Firefox 19+ */
-  font-family: TravelingTypewriter, sans-serif;  
+  font-family: TravelingTypewriter, sans-serif;
   font-size: 18px;
   text-align: center;
 }
 
-:-ms-input-placeholder {  
-  font-family: TravelingTypewriter, sans-serif;  
+:-ms-input-placeholder {
+  font-family: TravelingTypewriter, sans-serif;
   font-size: 18px;
   text-align: center;
 }
@@ -218,11 +233,12 @@ input {
   font-size: 40px;
   font-family: helvetica;
   float: left;
+  position: absolute;
 }
 .media-container {
 }
 
-.local-webcam > video { 
+.local-webcam > video {
   width: 230px;
   position: absolute;
   top: 200px;
