@@ -5,8 +5,11 @@ var server = require('http').Server(app);
 var io = require('socket.io')(server);
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
-var pgp = require("pg-promise")(/*options*/);
-var db = pgp("postgres://kentlee:@127.0.0.1:5432/database");
+var pgp = require("pg-promise")();
+var db = pgp("postgres://kentlee:@127.0.0.1:5432/classly");
+var bcrypt = require('bcrypt');
+
+var saltRounds = 10;
 
 app.use(bodyParser.json());
 
@@ -45,15 +48,68 @@ app.get('/', (req, res) => {
 
 //Signup page
 app.post('/signup', (req, res) => {
-  console.log('SERVER FILE (SIGNUP): REQ.BODY', req.body);
-  db.one('')
-  res.json(req.body);
+  var data = req.body;
+  console.log('DATA BEING RECEIVED IN POSTMAN:', data);
+  //Check database if the email exists
+  db.query('SELECT * FROM students WHERE email = ${email}', {email: data.email})
+  .then((result) => {
+    console.log('RESULT FROM EMAIL IN SERVER:', result);
+    //If the user email does not exist in the database
+    if (result.length === 0) {
+      //Password salting and hashing
+      bcrypt.genSalt(saltRounds, (err, salt) => {
+        if (err) {
+          console.log('Error salting password', err);
+        }
+        bcrypt.hash(data.password, salt, (err, hash) => {
+          if (err) {
+            console.log('Error hashing password:', err);
+          }
+          db.query('INSERT INTO students (firstname, lastname, email, stars, password) VALUES (${firstName}, ${lastName}, ${email}, ${stars}, ${password})', {firstName: data.firstName, lastName: data.lastName, password: hash, email: data.email, stars: 0})
+          .then((data) => {
+            console.log('Successfully inserted user');
+            res.json('user created');
+          })
+          .catch((err) => {
+            console.error('Error creating user in database');
+            res.json('database error');
+          });
+        });
+      });      
+    } else {
+      res.json('email already exists');
+    }
+  })
+  .catch((err) => {
+    console.error('ERROR ON READING DATABASE:', err);
+  });
 });
 
 //Signin page
 app.post('/signin', (req, res) => {
-  console.log('SERVER FILE (SIGNIN): REQ.BODY', req.body);
-  res.json(req.body);
+  //Check the database for the email and password
+  var data = req.body;
+  db.query('SELECT * from students where email = ${email}', {email: data.email})
+  .then((database) => {
+    if (database.length > 0) {
+      //Compare hashed password with database
+      bcrypt.compare(data.password, database[0].password, (err, samePW) => {
+        if (err) {
+          console.log('Error in comparing bcrypt passwords', err);
+        }
+        if (samePW) {
+          res.json({response: 'match successful'});
+        } else {
+          res.json({response: 'invalid email/password combination'});    
+        }
+      });
+    } else {
+      res.json({response: 'invalid email/password combination'});
+    }
+  })
+  .catch((err) => {
+    console.log('Error signing in', err);
+  });
 });
 
 // Twilio token request
@@ -88,11 +144,11 @@ var drawHistory = [];
 // Socket.IO Connection
 io.on('connection', (socket) => {
   console.log('a user connected');
-  socket.on('NextButtonClick', function(data) {
+  socket.on('NextButtonClick', (data) => {
     console.log ('inside server');
     io.emit('next page', data);
   });
-  socket.on('PrevButtonClick', function(data) {
+  socket.on('PrevButtonClick', (data) => {
     io.emit('prev page', data);
   });
   socket.on('disconnect', () => {
