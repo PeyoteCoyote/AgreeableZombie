@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "babel-register": "^6.7.2",
+    "bcrypt": "^0.8.6",
     "body-parser": "^1.4.3",
     "chai": "3.x",
     "cheerio": "0.19.x || 0.20.x",
