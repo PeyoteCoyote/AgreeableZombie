@@ -5,7 +5,7 @@ var server = require('http').Server(app);
 var io = require('socket.io')(server);
 var bodyParser = require('body-parser');
 var pgp = require("pg-promise")();
-var db = pgp("postgres://rodaan:@127.0.0.1:5432/classly");
+var db = pgp("postgres://esthercuan:@127.0.0.1:5432/classly");
 var bcrypt = require('bcrypt');
 var jwt = require('jwt-simple');
 
