@@ -21,6 +21,7 @@ class Signin extends Component {
   handleSubmit() {
     // -------------- validation
     const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
     if (this.state.email === '' || !re.test(this.state.email)) {
       console.log('INVALID EMAIL');
       this.setState({
@@ -71,7 +72,7 @@ class Signin extends Component {
                placeholder="password"
                onChange = {this.handlePassword.bind(this)}
                value = {this.state.password} />
-             <button onClick={this.handleSubmit.bind(this)}>Submit</button>
+             <Link to="/dashboard" onClick={this.handleSubmit.bind(this)}>Submit</Link>
         <span className="signup-link" onClick={()=>this.props.fn()} activeClassName="active">not a user? <b>sign up</b></span>
       </div>
     );

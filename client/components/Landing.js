@@ -1,16 +1,16 @@
 import React from 'react';
 
-const Home = React.createClass({
+const Landing = React.createClass({
   render: function() {
     return (
       <div className="home-page">
         <div class="intro">
           <div class="line"></div>
-          welcome to 
+          learn anything
         </div>
       </div>
     );
   }
 });
 
-export default Home;
+export default Landing;
