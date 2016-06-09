@@ -5,8 +5,8 @@ var server = require('http').Server(app);
 var io = require('socket.io')(server);
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
-var pgp = require("pg-promise")(/*options*/);
-var db = pgp("postgres://kentlee:@127.0.0.1:5432/database");
+var pgp = require("pg-promise")();
+var db = pgp("postgres://kentlee:@127.0.0.1:5432/classly");
 
 app.use(bodyParser.json());
 
@@ -45,15 +45,49 @@ app.get('/', (req, res) => {
 
 //Signup page
 app.post('/signup', (req, res) => {
-  console.log('SERVER FILE (SIGNUP): REQ.BODY', req.body);
-  db.one('')
-  res.json(req.body);
+  var data = req.body;
+  //Check database if the email exists
+  db.query('SELECT * FROM students WHERE email = ${email}', {email: data.email})
+  .then((result) => {
+    console.log('RESULT FROM EMAIL IN SERVER:', result);
+    //If the user email does not exist in the database
+    if (result.length === 0) {
+      db.query('INSERT INTO students (firstname, lastname, email, stars, password) VALUES (${firstName}, ${lastName}, ${email}, ${stars}, ${password})', {firstName: data.firstName, lastName: data.lastName, password: data.password, email: data.email, stars: 0})
+      .then((data) => {
+        console.log('Successfully inserted user');
+        res.json('user created');
+      })
+      .catch((err) => {
+        console.error('Error creating user in database');
+        res.json('database error');
+      });
+    } else {
+      res.json('email already exists');
+    }
+  })
+  .catch((err) => {
+    console.error('ERROR ON READING DATABASE:', err);
+  });
 });
 
 //Signin page
 app.post('/signin', (req, res) => {
-  console.log('SERVER FILE (SIGNIN): REQ.BODY', req.body);
-  res.json(req.body);
+  //Check the database for the email and password
+  var data = req.body;
+  db.query('SELECT * from students where email = ${email}', {email: data.email})
+  .then((database) => {
+    if (database.length > 0) {
+      if (database[0].password === data.password) {
+        console.log('password match');
+        res.json({response: 'match successful'});
+      } 
+    } else {
+      res.json({response: 'invalid email/password combination'});
+    }
+  })
+  .catch((err) => {
+    console.log('Error signing in', err);
+  });
 });
 
 // Twilio token request
