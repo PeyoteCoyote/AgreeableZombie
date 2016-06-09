@@ -60,6 +60,7 @@ router.get('/', (req, res) => {
 //Triggers whenever a param route is received; calls db for user information
 router.param('user_id', (req, res, next, id) => {
   db.query('SELECT * from students where id=${id}')
+
 });
 
 //Route when a user signs up (signup page)
