@@ -1,5 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import { Link } from 'react-router';
+import auth from './../services/auth';
 
 class Signin extends Component {
   constructor(props) {
@@ -41,22 +42,25 @@ class Signin extends Component {
 
     // check if all fields are valid before sending off the request
     if(this.state.email !== '' && re.test(this.state.email) && this.state.password !== ''){
-      var data = {
-        email: this.state.email,
-        password: this.state.password
-      };
+      // var data = {
+      //   email: this.state.email,
+      //   password: this.state.password
+      // };
       
-      $.ajax({
-        url: 'http://localhost:8000/signin',
-        datatype: 'json',
-        data: data,
-        type: 'POST',
-        success: (data) => {
-          console.log('Data on Signin:', data);
-        },
-        error: (xhr, status, err) => {
-          console.error('Error on Signin:', status, err);
-        }
+      // $.ajax({
+      //   url: 'http://localhost:8000/signin',
+      //   datatype: 'json',
+      //   data: data,
+      //   type: 'POST',
+      //   success: (data) => {
+      //     console.log('Data on Signin:', data);
+      //   },
+      //   error: (xhr, status, err) => {
+      //     console.error('Error on Signin:', status, err);
+      //   }
+      // });
+      auth.signin(this.state.email, this.state.password, (resDB)=>{
+        console.log('signup!', resDB);
       });
     }
   }
@@ -74,7 +78,7 @@ class Signin extends Component {
                placeholder="password"
                onChange = {this.handlePassword.bind(this)}
                value = {this.state.password} />
-             <Link to="/dashboard" onClick={this.handleSubmit.bind(this)}>Submit</Link>
+             <button onClick={this.handleSubmit.bind(this)}>Submit</button>
         <span className="signup-link" onClick={()=>this.props.fn()} activeClassName="active">not a user? <b>sign up</b></span>
       </div>
     );
