@@ -1,5 +1,5 @@
 var socket = io();
-var messages = [ {text:"Messaggio1"}, {text:"Messaggio2"} ];
+var messages = [ {text:"msg1"}, {text:"msg2"} ];
 
 var Title  = React.createClass({
     render: function() {
