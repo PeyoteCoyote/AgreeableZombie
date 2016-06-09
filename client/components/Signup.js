@@ -1,5 +1,5 @@
 import React, { PropTypes, Component } from 'react';
-import { Link } from 'react-router';
+import { Link, browserHistory } from 'react-router';
 import auth from './../services/auth';
 
 class Signup extends Component {
@@ -47,6 +47,7 @@ class Signup extends Component {
 				console.log('sending to server');
 				auth.signup(data, (resDB)=>{
 					console.log('signed up', resDB);
+					browserHistory.push('/dashboard');
 
 				})
 			}

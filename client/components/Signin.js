@@ -1,5 +1,5 @@
 import React, { PropTypes, Component } from 'react';
-import { Link } from 'react-router';
+import { Link, browserHistory } from 'react-router';
 import auth from './../services/auth';
 
 class Signin extends Component {
@@ -61,6 +61,7 @@ class Signin extends Component {
       // });
       auth.signin(this.state.email, this.state.password, (resDB)=>{
         console.log('signup!', resDB);
+        browserHistory.push('/dashboard');
       });
     }
   }
