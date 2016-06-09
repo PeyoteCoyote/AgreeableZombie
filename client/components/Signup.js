@@ -34,7 +34,10 @@ class Signup extends Component {
 		// if everything passes, then do the ajax request
 		  if (this.state.firstName !== '' && this.state.lastName !== '' && this.state.password !== '' && this.state.passwordAgain !== '' && (this.state.password === this.state.passwordAgain) && re.test(this.state.email)) {
 				var data = {
-					value: 'Sign Up Page'
+					firstName: this.state.firstName,
+					lastName: this.state.lastName,
+					password: this.state.password,
+					email: this.state.email
 				};
 				$.ajax({
 					url: 'http://localhost:8000/signup',

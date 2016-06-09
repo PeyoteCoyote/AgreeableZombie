@@ -42,7 +42,8 @@ class Signin extends Component {
     // check if all fields are valid before sending off the request
     if(this.state.email !== '' && re.test(this.state.email) && this.state.password !== ''){
       var data = {
-        value: 'Sign In Page'
+        email: this.state.email,
+        password: this.state.password
       };
       $.ajax({
         url: 'http://localhost:8000/signin',
