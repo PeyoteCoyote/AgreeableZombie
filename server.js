@@ -154,6 +154,12 @@ io.on('connection', (socket) => {
   socket.on('disconnect', () => {
     console.log('user disconnected');
   });
+  socket.on('send:message', function (data) { //chatbox
+    console.log('message ' + data.text);
+    io.emit('send:message', {
+        text: data.text
+    });
+  });
 
   //Socket Events for Canvas interactions
   for(var i in drawHistory){
