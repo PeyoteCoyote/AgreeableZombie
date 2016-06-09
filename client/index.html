@@ -16,7 +16,7 @@
   <body>
    <script>
     var socket = io();
-    socket.on('highlight', (data) => {
+    socket.on('highlight', function (data) {
       console.log(data);
       socket.emit('event2', { my: 'data' });
     });
