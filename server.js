@@ -6,8 +6,10 @@ var io = require('socket.io')(server);
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 var pgp = require("pg-promise")();
-var db = pgp("postgres://danialsajjad:@127.0.0.1:5432/classly");
+var db = pgp("postgres://rodaan:@127.0.0.1:5432/classly");
 var bcrypt = require('bcrypt');
+
+var router = express.Router();
 
 var saltRounds = 10;
 
@@ -18,7 +20,15 @@ require('./server/middleware.js')(app, express);
 require('./server/routes.js')(app, express);
 
 // connect to mongo database named "books"
-mongoose.connect('mongodb://localhost/books');
+mongoose.connect('mongodb://localhost/sessions');
+
+var Schema = mongoose.Schema;
+
+var UserSchema   = new Schema({
+    name: String
+});
+
+var User = mongoose.model('Dashboard', UserSchema);
 
 // Setup of environment variables
 require('dotenv').load();
@@ -38,14 +48,79 @@ var AccessToken = twilio.AccessToken;
 var ConversationsGrant = AccessToken.ConversationsGrant;
 var randomUsername = require('./randos.js');
 
+router.use((req, res, next) => {
+  console.log('serving request for:', req.url, ' and ', req.method);
+  next();
+});
+
 app.use(express.static(__dirname + '/client'));
 
 var port = process.env.PORT || 8000;
 
-app.get('/', (req, res) => {
-  res.send('serving up static files!');
+// app.get('/', (req, res) => {
+//   res.send('serving up static files!');
+// });
+
+router.get('/',(req, res) => {
+    res.json({ message: 'hooray! welcome to our api!' });   
 });
 
+router.route('/user')
+  .post((req, res) => {
+    var user = new User();
+    user.name = req.body.name;
+    user.save((err) => {
+      if(err){
+        res.send(err);
+      }
+      res.json({message: 'User created!'});
+    });
+  })
+  .get((req,res) => {
+    console.log('hello');
+    User.find((err, users) => {
+      if(err){
+        res.send(err);
+      }
+      res.json(users)
+    });
+  });
+
+router.route('/user/:user_id')
+  .get((req, res) => {
+    User.findById(req.params.user_id, (err, user) => {
+      if(err){
+        res.send(err);
+      }
+      res.json(user);
+    });
+  })
+  .put((req, res) => {
+    User.findById(req.params.user_id, (err, user) =>{
+      if(err){
+        res.send(err);
+      }
+      user.name = req.body.name;
+      user.save(err => {
+        if(err){
+          res.send(err);
+        }
+        res.json({message:'User updated!'});
+      });
+    });
+  })
+  .delete((req, res) => {
+    User.remove({
+      _id: req.params.user_id
+    }, (err, user) => {
+      if(err){
+        res.send(err);
+      }
+      res.json({message: 'Successfully deleted'});
+    });
+  });
+
+app.use('/api', router);
 
 app.post('/api/images', (req, res) => {
    console.log(req.body);
