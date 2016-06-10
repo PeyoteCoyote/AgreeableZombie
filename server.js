@@ -6,8 +6,9 @@ var io = require('socket.io')(server);
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 var pgp = require("pg-promise")();
-var db = pgp("postgres://rodaan:@127.0.0.1:5432/classly");
+var db = pgp("postgres://kentlee:@127.0.0.1:5432/classly");
 var bcrypt = require('bcrypt');
+var jwt = require('jwt-simple');
 
 var router = express.Router();
 
@@ -67,65 +68,62 @@ router.get('/',(req, res) => {
 
 router.route('/user')
   .post((req, res) => {
-    var user = new User();
-    user.name = req.body.name;
-    user.save((err) => {
-      if(err){
-        res.send(err);
-      }
-      res.json({message: 'User created!'});
+    var data = req.body;
+    db.query('INSERT INTO students (firstname, lastname, email, stars, password) VALUES (${firstName}, ${lastName}, ${email}, ${stars}, ${password})', {firstName: data.firstName, lastName: data.lastName, password: data.password, email: data.email, stars: 0})
+    .then((data) => {
+      console.log('Successfully inserted user');
+      res.json('user created');
+    })
+    .catch((err) => {
+      console.error('Error creating user in database');
+      res.json('database error');
     });
+    // Creation of user
+    // var user = new User();
+    // user.name = req.body.name;
+    // user.save((err) => {
+    //   if(err){
+    //     res.send(err);
+    //   }
+    //   res.json({message: 'User created!'});
+    // });
   })
   .get((req,res) => {
     console.log('hello');
-    User.find((err, users) => {
-      if(err){
-        res.send(err);
-      }
-      res.json(users)
+    db.query('SELECT * FROM students')
+    .then((data) => {
+      console.log('GOT ALL STUDENTS:', data);
+      res.json(data);
+    }) 
+    .catch((err) => {
+      console.log('Error', err);
     });
   });
 
-router.route('/user/:user_id')
+router.route('/user/:user_id')  //Todo: query database for unique user's settings/notes
   .get((req, res) => {
-    User.findById(req.params.user_id, (err, user) => {
-      if(err){
-        res.send(err);
-      }
-      res.json(user);
-    });
-  })
-  .put((req, res) => {
-    User.findById(req.params.user_id, (err, user) =>{
-      if(err){
-        res.send(err);
-      }
-      user.name = req.body.name;
-      user.save(err => {
-        if(err){
-          res.send(err);
-        }
-        res.json({message:'User updated!'});
-      });
-    });
-  })
-  .delete((req, res) => {
-    User.remove({
-      _id: req.params.user_id
-    }, (err, user) => {
-      if(err){
-        res.send(err);
-      }
-      res.json({message: 'Successfully deleted'});
+    console.log('REQUEST PARAMS:', req.body);
+    db.query('SELECT * FROM students WHERE email=${email}', {email: 'kentqlee@gmail.com'})
+    .then((data) => {
+      res.json(data);
+    })
+    .catch((err) => {
+      console.error('Error:', err);
     });
   });
 
+router.route('/user/:user_id/images')
+  .post((req, res) => {
+    console.log(req.body);
+    res.send('Image was received');
+  });
+
+
+//Use the router in the application
 app.use('/api', router);
 
-app.post('/api/images', (req, res) => {
-   console.log(req.body);
-   res.send('Image was received');
-});
+
+
 
 //Signup page
 app.post('/signup', (req, res) => {

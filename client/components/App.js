@@ -43,46 +43,11 @@ class App extends Component {
   }
 
   componentWillMount() {
-    var app = this;
-    $.getJSON('/api/books', function(data) {
 
-      console.log('data from server is - ', data);
-
-      var title = data[0].bookTitle;
-      var bookData = data[0].bookData;
-
-      console.log('bookTitle is - ', title);
-      console.log('bookdata is - ', bookData);
-
-      app.setState({
-        bookTitle: title,
-        bookData: bookData
-      });
-    });
   }
 
   componentDidMount() {
     this.render();
-  }
-
-  onClickPrev() {
-    console.log('Previous Clicked');
-    socket.emit('PrevButtonClick', {msg: 'Previous button clicked', pageCounter: this.state.pageCounter-2});
-    if(this.state.pageCounter-1>=0) {
-      this.setState({pageCounter: this.state.pageCounter-2});
-    } else {
-      socket.emit('PrevButtonClick', {msg: "BEGINNING OF BOOK!", pageCounter: this.state.pageCounter});
-    }
-  }
-
-  onClickNext() {
-    console.log('Next clicked');
-    if (this.state.pageCounter<this.state.bookData.length-1) {
-      this.setState({pageCounter: this.state.pageCounter+2});
-      socket.emit('NextButtonClick', {msg: 'Next button clicked', pageCounter: this.state.pageCounter+2});
-    } else {
-      socket.emit('NextButtonClick', {msg: "END OF BOOK!", pageCounter: this.state.pageCounter});
-    }
   }
 
  onClickSnapshot() {
@@ -103,7 +68,6 @@ class App extends Component {
   }
 
   render() {
-    if (this.state.bookData.length > 0) {
      return (
           <div>
             <div id="webcam-features">
@@ -119,10 +83,7 @@ class App extends Component {
             <DrawingTools />
           </div>
         );
-  } else {
-    return(<p> Loading ... </p>);
-  }
+  } 
 }
-};
 
 export default App;
