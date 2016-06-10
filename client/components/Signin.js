@@ -46,7 +46,7 @@ class Signin extends Component {
       //   email: this.state.email,
       //   password: this.state.password
       // };
-      
+
       // $.ajax({
       //   url: 'http://localhost:8000/signin',
       //   datatype: 'json',
@@ -79,7 +79,7 @@ class Signin extends Component {
                placeholder="password"
                onChange = {this.handlePassword.bind(this)}
                value = {this.state.password} />
-             <button onClick={this.handleSubmit.bind(this)}>Submit</button>
+             <button className= "submit-button" onClick={this.handleSubmit.bind(this)}>Submit</button>
         <span className="signup-link" onClick={()=>this.props.fn()} activeClassName="active">not a user? <b>sign up</b></span>
       </div>
     );

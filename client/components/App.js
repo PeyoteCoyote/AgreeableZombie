@@ -11,7 +11,7 @@ import RightPageText from './RightPageText.js';
 import LeftPageImage from './LeftPageImage.js';
 import RightPageImage from './RightPageImage.js';
 import WebCam from './WebCam.js';
-import Canvas from './Canvas.jsx';
+import DrawingTools from './DrawingTools.js';
 import socket from '../../websocket.js';
 import $ from 'jquery';
 import Chatbox from './Chatbox.js';
@@ -98,7 +98,7 @@ class App extends Component {
               <Chatbox />
               </div>
             </div>
-            <Canvas />
+            <DrawingTools />
           </div>
         );
   } else {

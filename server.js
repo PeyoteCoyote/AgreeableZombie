@@ -6,7 +6,7 @@ var io = require('socket.io')(server);
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 var pgp = require("pg-promise")();
-var db = pgp("postgres://rodaan:@127.0.0.1:5432/classly");
+var db = pgp("postgres://esthercuan:@127.0.0.1:5432/classly");
 var bcrypt = require('bcrypt');
 
 var saltRounds = 10;
@@ -76,7 +76,7 @@ app.post('/signup', (req, res) => {
             res.json('database error');
           });
         });
-      });      
+      });
     } else {
       res.json('email already exists');
     }
@@ -105,7 +105,7 @@ app.post('/signin', (req, res) => {
           console.log('Match successful');
           res.json({response: 'match successful'});
         } else {
-          res.json({response: 'invalid email/password combination'});    
+          res.json({response: 'invalid email/password combination'});
         }
       });
     } else {
@@ -176,6 +176,14 @@ io.on('connection', (socket) => {
     drawHistory.push(newLine);
     io.emit('drawLine', newLine);
   });
+
+  socket.on('clearCanvas', () => {
+    //listen to clearCanvas
+    drawHistory.length = 0;
+    io.emit('clearCanvas', drawHistory);
+    // empty the drawHistory and send it back to client
+  });
+
 });
 
 server.listen(port, (err) => {
