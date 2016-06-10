@@ -40,9 +40,8 @@ class App extends Component {
       this.setState({pageCounter: data.pageCounter});
     });
   }
-
   componentWillMount() {
-
+    var app = this;
   }
 
   componentDidMount() {
@@ -55,7 +54,7 @@ class App extends Component {
    button.href = data;
    button.download = 'snapshot1.png';
    console.log(data);
-   
+
    $.post('api/images', {time: Date.now(), img: data}, function(data, status) {
      console.log('>Data<<<<<<: ', data);
      console.log('>Status<<<<<<: ', status);
@@ -68,22 +67,15 @@ class App extends Component {
 
   render() {
      return (
-          <div>
-            <div id="webcam-features">
-              <WebCam conversation={this.state.conversation}/>
-            </div>
-            <div id='buttons-with-book'>
-              <div id='center'><Background />
-              <Chatbox />
-              <NotesCarousel />
-              <DrawingBoard />
-              <div id='left-button'><SaveCanvas clickHandler={this.onClickSnapshot}/></div>              
-              </div>
-            </div>
-            <DrawingTools />
+          <div className = "container">
+            <div id="webcam"><WebCam conversation={this.state.conversation}/></div>
+            <div className="chatbox"><Chatbox /></div>
+            <div className="drawingtools"><DrawingTools /></div>
+            <div className="savecanvas"><SaveCanvas clickHandler={this.onClickSnapshot}/></div>
           </div>
         );
-  } 
 }
 
 export default App;
+
+//         <NotesCarousel />

@@ -38,12 +38,9 @@ var Chatbox = React.createClass({
     },
     render: function(){
         return(
-          <div className='row'>
-            <div className="chatbox col-md-3">
-              <Title text="Chat Box"/>
-              <MessageList messages={this.state.messages}/>
-              <MessageForm submitfnc={this.handleMessageSubmit}/>
-            </div>
+          <div className='messagelist'>
+            <MessageList messages={this.state.messages}/>
+            <MessageForm submitfnc={this.handleMessageSubmit}/>
           </div>
         );
     }
@@ -56,14 +53,12 @@ var MessageList = React.createClass({
             return <Message msg={message.text} />
         }
         return(
-        <ul id="messages">
+        <ul className="messages">
             { this.props.messages.map(renderMessage)}
         </ul>
         );
     }
 });
-
-
 
 var MessageForm = React.createClass({
 
@@ -97,7 +92,7 @@ var MessageForm = React.createClass({
 var Message = React.createClass({
     render: function(){
         return(
-            <li id="messages">{this.props.msg}</li>
+            <li className="messages">{this.props.msg}</li>
         );
     }
 });
