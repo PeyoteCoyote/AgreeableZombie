@@ -81,7 +81,7 @@ class Signup extends Component {
 					placeholder="email"
 					value = {this.state.email}
 					onChange ={(event) => this.setState({email: event.target.value})}/>
-				<button className="submit-button" Click={this.handleSubmit.bind(this)}>Submit</button>
+				<button className="submit-button" onClick={this.handleSubmit.bind(this)}>Submit</button>
          <span className="signup-link" onClick={()=>this.props.fn()} activeClassName="active">already have an account ? <b>sign in</b></span>
       </div>
 		);
