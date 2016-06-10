@@ -6,7 +6,7 @@ var io = require('socket.io')(server);
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 var pgp = require("pg-promise")();
-var db = pgp("postgres://kentlee:@127.0.0.1:5432/classly");
+var db = pgp("postgres://danialsajjad:@127.0.0.1:5432/classly");
 var bcrypt = require('bcrypt');
 
 var saltRounds = 10;
