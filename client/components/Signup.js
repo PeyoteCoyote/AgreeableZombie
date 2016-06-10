@@ -33,7 +33,7 @@ class Signup extends Component {
     if (!re.test(this.state.email)) {
       this.setState({error: true, errorMessage: 'invalid email'});
     }
-    
+
 	  console.log('getting ready to send to server:', this.state);
 		// if everything passes, then do the ajax request
 		  if (this.state.firstName !== '' && this.state.lastName !== ''){
@@ -81,7 +81,7 @@ class Signup extends Component {
 					placeholder="email"
 					value = {this.state.email}
 					onChange ={(event) => this.setState({email: event.target.value})}/>
-				<button onClick={this.handleSubmit.bind(this)}>Submit</button>
+				<button className="submit-button" Click={this.handleSubmit.bind(this)}>Submit</button>
          <span className="signup-link" onClick={()=>this.props.fn()} activeClassName="active">already have an account ? <b>sign in</b></span>
       </div>
 		);

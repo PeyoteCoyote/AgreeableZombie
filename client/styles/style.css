@@ -18,7 +18,17 @@ body {
 }
 h1 {
   color: white;
+  font-weight: bold;
+  font-size: 50px;
+  margin-bottom: 0px;
 }
+h2 {
+  margin: 0px;
+  color:white;
+  font-weight:bold;
+  font-size: 30px;
+}
+
 span.title-underline {
   width: 200px;
   height: 10px;
@@ -27,7 +37,7 @@ span.title-underline {
 
 .home-page {
   float:left;
-  margin-top: 250px;
+  margin-top: 350px;
   margin-left: 150px;
 }
 
@@ -168,39 +178,77 @@ span.title-underline {
   top: 79px;
   left: 100px;
 }
-
-input {
+#signup {
   text-align: center;
-  font-family: TravelingTypewriter, sans-serif;
-  font-size: 18px;
+}
+input {
+  margin: 10px;
+  margin-top: 20px;
+  padding: 10px;
+  padding-left:0px;
+  width: 200px;
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid black;
+  font-size: 15px;
 }
 
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px  #ffcc00 inset;
+}
+
+
+.submit-button {
+
+  float:right;
+  background: transparent;
+  outline: none;
+  width: 100px;
+  margin-top:30px;
+  margin-right: 40px;
+  padding:10px;
+  border: 1px solid black;
+}
+.submit-button:active {
+  background:black;
+  color:white;
+}
+.signup-link{
+  position: absolute;
+  bottom: 20px;
+  left: 10%;
+  right: 10%;
+  font-size: 15px;
+}
 #invite-section {
   padding-left: 10px;
 }
-
 ::-webkit-input-placeholder {
-  font-family: TravelingTypewriter, sans-serif;
-  font-size: 18px;
-  text-align: center;
+
+  font-size: 15px;
+  text-align: left;
+  color: black;
 }
 
 :-moz-placeholder { /* Firefox 18- */
-  font-family: TravelingTypewriter, sans-serif;
-  font-size: 18px;
-  text-align: center;
+
+  font-size: 15px;
+  text-align: left;
+  color: black;
 }
 
 ::-moz-placeholder {  /* Firefox 19+ */
-  font-family: TravelingTypewriter, sans-serif;
-  font-size: 18px;
-  text-align: center;
+
+  font-size: 15px;
+  text-align: left;
+  color: black;
 }
 
 :-ms-input-placeholder {
-  font-family: TravelingTypewriter, sans-serif;
-  font-size: 18px;
-  text-align: center;
+
+  font-size: 15px;
+  text-align: left;
+  color: black;
 }
 
 #webcam-wrapper {
@@ -217,10 +265,6 @@ input {
   right: 0;
 }
 
-.signup-link{
-  bottom: 0;
-}
-
 .login-link {
   margin: 20px;
   position: absolute;
@@ -232,6 +276,8 @@ input {
   color: white;
   font-size: 40px;
   font-family: helvetica;
+  letter-spacing: 3px;
+  text-transform: lowercase;
   float: left;
   position: absolute;
 }

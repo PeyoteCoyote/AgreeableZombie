@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+
 class Canvas extends React.Component {
   constructor(props){
     super(props);
@@ -17,7 +18,7 @@ class Canvas extends React.Component {
       context: null,
       width: window.innerWidth,
       height: window.innerHeight,
-      socket: socket
+      socket: socket,
     };
 
     socket.on('drawLine', data => {
@@ -27,7 +28,15 @@ class Canvas extends React.Component {
       context.lineWidth = 2;
       context.moveTo(line[0].x - 500 , line[0].y - 150 ); // adjusts draw point to be in book component
       context.lineTo(line[1].x - 500 , line[1].y - 150 );
+      context.strokeStyle = this.props.color;
       context.stroke();
+      console.log("CONTEXT", this.state.context, "CANVAS", this.state.canvas);
+    });
+
+    socket.on('clearCanvas', data => {
+      var context = this.state.context;
+      context.clearRect(0, 0, canvas.width, canvas.height);
+      
     });
   }
 
@@ -46,7 +55,7 @@ class Canvas extends React.Component {
     };
 
     var boundingRect = document.getElementsByClassName('background')[0].getBoundingClientRect();
-  
+
     canvas.onmousemove = e => {
       var mx = e.clientX;
       var my = e.clientY;
