@@ -46,6 +46,12 @@ app.get('/', (req, res) => {
   res.send('serving up static files!');
 });
 
+
+app.post('/api/images', (req, res) => {
+   console.log(req.body);
+   res.send('Image was received');
+});
+
 //Signup page
 app.post('/signup', (req, res) => {
   console.log('hallo');
