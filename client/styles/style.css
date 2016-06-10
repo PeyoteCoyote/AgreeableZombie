@@ -367,4 +367,12 @@ input:-webkit-autofill {
     background: skyblue;
   }
 
-//------------------------------------------
+//------------------------------------------ Carousel
+ +
+ +.carousel {
+ +  margin: 0 auto;
+ +  padding: 40px;
+ +  width: 80%;
+ +  color: #333;
+ +  background: #419be0;
+ +}-----------------------

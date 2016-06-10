@@ -15,6 +15,9 @@ import DrawingTools from './DrawingTools.js';
 import socket from '../../websocket.js';
 import $ from 'jquery';
 import Chatbox from './Chatbox.js';
+import SaveCanvas from './SaveCanvas.js';
+import NotesCarousel from './NotesCarousel.js';
+
 
 class App extends Component {
   constructor(props) {
@@ -82,6 +85,19 @@ class App extends Component {
     }
   }
 
+ onClickSnapshot() {
+   var button = document.getElementById('btn-download');
+   var data = document.getElementById('canvas').toDataURL('image/png');
+   button.href = data;
+   button.download = 'snapshot1.png';
+   console.log(data);
+   
+   $.post('api/images', {time: Date.now(), img: data}, function(data, status) {
+     console.log('>Data<<<<<<: ', data);
+     console.log('>Status<<<<<<: ', status);
+   });
+ }
+
   changeText(event) {
     this.setState ({msg: event.msg});
   }
@@ -96,6 +112,8 @@ class App extends Component {
             <div id='buttons-with-book'>
               <div id='center'><Background />
               <Chatbox />
+              <NotesCarousel />
+              <div id='left-button'><SaveCanvas clickHandler={this.onClickSnapshot}/></div>              
               </div>
             </div>
             <DrawingTools />

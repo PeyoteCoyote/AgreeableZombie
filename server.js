@@ -6,7 +6,7 @@ var io = require('socket.io')(server);
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 var pgp = require("pg-promise")();
-var db = pgp("postgres://kentlee:@127.0.0.1:5432/classly");
+var db = pgp("postgres://danialsajjad:@127.0.0.1:5432/classly");
 var bcrypt = require('bcrypt');
 
 var saltRounds = 10;
@@ -44,6 +44,12 @@ var port = process.env.PORT || 8000;
 
 app.get('/', (req, res) => {
   res.send('serving up static files!');
+});
+
+
+app.post('/api/images', (req, res) => {
+   console.log(req.body);
+   res.send('Image was received');
 });
 
 //Signup page
