@@ -68,14 +68,13 @@ class App extends Component {
   render() {
      return (
           <div className = "container">
-            <div id="webcam"><WebCam conversation={this.state.conversation}/></div>
+            <div className="webcam"><WebCam conversation={this.state.conversation}/></div>
             <div className="chatbox"><Chatbox /></div>
             <div className="drawingtools"><DrawingTools /></div>
             <div className="savecanvas"><SaveCanvas clickHandler={this.onClickSnapshot}/></div>
           </div>
         );
+  }
 }
 
 export default App;
-
-//         <NotesCarousel />
