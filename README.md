@@ -62,6 +62,7 @@ Client side testing is implemented with Karma and Airbnb's Enzyme framework. Dev
 From the root directory run:
 ```
 npm test
+```
 
 ## Architecture
 ### High Level Architecture
