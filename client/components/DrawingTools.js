@@ -34,7 +34,7 @@ class DrawingTools extends Component {
           <li><button className="tool"><img src=""/>text</button></li>
           <li><button className="tool"><img src=""/>undo</button></li>
           <li><button className="tool" onClick= {this.handleClear}><img src=""/>clear</button></li>
-          <li><a href="#" id="btn-download" onClick={this.props.clickHandler}>Download as image</a></li>
+          <li><a href="#" id="btn-download" onClick={this.props.clickHandler}>Download Notes</a></li>
         </ul>
       </div>
     );

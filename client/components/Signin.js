@@ -63,7 +63,8 @@ class Signin extends Component {
       // });
       auth.signin(this.state.email, this.state.password, (resDB)=>{
         console.log('signup!', resDB);
-        browserHistory.push('/');
+        // browserHistory.goback('/');
+        location.reload();
       });
     }
   }

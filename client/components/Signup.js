@@ -49,7 +49,8 @@ class Signup extends Component {
 					console.log('++++++++++signed up', resDB);
           // const path = resDB.id + '/dashboard';
 					// browserHistory.push(path);
-          auth.signedin();
+          // auth.signedin();
+          location.reload();
 				});
 			}
 	}

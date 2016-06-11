@@ -31,9 +31,7 @@ var Chatbox = React.createClass({
     this.setState();
   },
   handleMessageSubmit : function(message){
-      // this.state.messages.push(message);
-      // this.setState();
-
+    message.text = window.localStorage.firstname + ': ' + message.text
     socket.emit('send:message', message);
   },
   render: function(){
