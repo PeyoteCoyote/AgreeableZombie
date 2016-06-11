@@ -30,7 +30,6 @@ class Canvas extends React.Component {
       context.lineTo(line[1].x - 500 , line[1].y - 150 );
       context.strokeStyle = this.props.color;
       context.stroke();
-      console.log("CONTEXT", this.state.context, "CANVAS", this.state.canvas);
     });
 
     socket.on('clearCanvas', data => {
@@ -57,8 +56,8 @@ class Canvas extends React.Component {
     var boundingRect = document.getElementsByClassName('whiteboard')[0].getBoundingClientRect();
 
     canvas.onmousemove = e => {
-      var mx = e.clientX + 239;
-      var my = e.clientY + 70;
+      var mx = e.clientX+301;
+      var my = e.clientY-190;
       console.log("MOUSE",mx, my);
       this.setState({
         move: true,
