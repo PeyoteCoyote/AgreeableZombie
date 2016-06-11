@@ -4,7 +4,7 @@ import { Router, Route, browserHistory, IndexRoute } from 'react-router';
 //Layouts
 import MainLayout from './components/main-layout';
 import LandingLayout from './components/landing-layout';
-import DashboardLayoutWrapper from './components/dashboard-layout-wrapper';
+import DashboardLayout from './components/dashboard-layout';
 import ClassroomLayout from './components/App';
 
 //Pages
