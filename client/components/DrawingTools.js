@@ -28,12 +28,10 @@ class DrawingTools extends Component {
       <div className="drawingTools">
         <Canvas color = {this.state.color}/>
       <ul className="drawingtoolslist">
-          <li><button className="tool"><img src=""/>pen</button></li>
           <li><button className="tool" onClick = {() => {this.handleColorChange('#ffd93b');}}>Yellow</button></li>
           <li><button  className="tool"onClick = {() => {this.handleColorChange('#000000');}}>Black</button></li>
-          <li><button className="tool"><img src=""/>text</button></li>
-          <li><button className="tool"><img src=""/>undo</button></li>
           <li><button className="tool" onClick= {this.handleClear}><img src=""/>clear</button></li>
+          <li><a href="#" id="btn-download" onClick={this.props.clickHandler}>Download as image</a></li>
         </ul>
       </div>
     );

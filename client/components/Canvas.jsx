@@ -57,7 +57,7 @@ class Canvas extends React.Component {
 
     canvas.onmousemove = e => {
       var mx = e.clientX+301;
-      var my = e.clientY-190;
+      var my = e.clientY-180;
       console.log("MOUSE",mx, my);
       this.setState({
         move: true,

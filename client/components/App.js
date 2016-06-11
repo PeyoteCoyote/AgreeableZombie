@@ -14,7 +14,7 @@ import WebCam from './WebCam.js';
 import DrawingTools from './DrawingTools.js';
 import socket from '../../websocket.js';
 import $ from 'jquery';
-import Chatbox from './Chatbox.js';
+import Wrapper from './Chatbox.js';
 import SaveCanvas from './SaveCanvas.js';
 import NotesCarousel from './NotesCarousel.js';
 
@@ -69,9 +69,8 @@ class App extends Component {
      return (
           <div className = "container">
             <div className="webcam"><WebCam conversation={this.state.conversation}/></div>
-            <div className="chatbox"><Chatbox /></div>
-            <div className="drawingtools"><DrawingTools /></div>
-            <div className="savecanvas"><SaveCanvas clickHandler={this.onClickSnapshot}/></div>
+            <div className="chatbox"><Wrapper /></div>
+            <div className="drawingtools"><DrawingTools clickHandler={this.onClickSnapshot}/></div>
           </div>
         );
   }

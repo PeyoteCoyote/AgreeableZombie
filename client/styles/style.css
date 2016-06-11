@@ -240,7 +240,6 @@ input:-webkit-autofill {
   .chatbox {
     height: 300px;
     background-color: whitesmoke;
-
   }
   .chatcontainer {
     position:relative;
@@ -248,10 +247,11 @@ input:-webkit-autofill {
     overflow: scroll;
     height: inherit;
   }
-
   .messages {
     list-style: none;
     width: 100%;
+  }
+  .messagelist{
 
   }
 
@@ -269,21 +269,23 @@ input:-webkit-autofill {
   .messagebar {
     position: absolute;
     width: 100%;
-    bottom: 0;
+    bottom: 0px;
     background-color: whitesmoke;
   }
 
   form {
     border-top: 1px solid grey;
     border-bottom: 1px solid grey;
-    display: flex;
     height: 37px;
+    margin-bottom:0px;
   }
 
   input.chatboxinput {
     padding: 0px;
     margin: 0px;
     padding-left: 10px;
+    height: inherit;
+    width: 73%;
   }
 
   input:focus {
@@ -292,8 +294,11 @@ input:-webkit-autofill {
     outline-width: 2px;
   }
   button.chatboxsubmit {
-    border:none;
+    border: none;
     border-left: 1px solid grey;
+    float: right;
+    position: absolute;
+    right: 5px;
   }
   /* ------------------ Webcam*/
   .webcam {
@@ -337,34 +342,25 @@ input:-webkit-autofill {
     cursor: pointer;
   }
 
-  #messages {
-    list-style-type: none;
-    margin: 10;
-    padding: 10;
-  }
 
-  #messages li {
-    padding: 5px 10px;
-  }
 
-  #messages li:nth-child(odd) {
-    background: skyblue;
-  }
-
-<<<<<<< HEAD
 /*------------- Canvas*/
-
+canvas {
+  background-color: rgb(244, 244, 244);
+}
 .drawingTools {
 
 }
 .canvas-container {
+  width: 100%;
+  height: 330px;
   background-color: rgb(39, 39, 39);
 }
 
 .whiteboard {
-  width: 960px;
-  height: 380px;
-  background-color: rgb(39, 39, 39);
+  width: inherit;
+  height: inherit;
+  /*background-color: rgb(39, 39, 39);*/
 }
 
 .drawingtoolslist{
@@ -381,4 +377,32 @@ ul.drawingtoolslist li button {
   display: inline;
   border:none;
   margin-bottom: 0px;
+}
+
+#btn-download {
+  float: right;
+  padding-top: 5px;
+  padding-right: 10px;
+
+}
+
+/* ------------------------------------------ dashboard*/
+
+.startclass {
+  position: absolute;
+top: 250px;
+left: 400px;
+right: 400;
+color: black;
+background-color: rgb(255, 223, 0);
+padding: 20px;
+width: 200px;
+text-align: center;
+text-decoration: none;
+font-weight: bold;
+letter-spacing: 1px;
+}
+
+.student {
+  left: 700px;
 }
