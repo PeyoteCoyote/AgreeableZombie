@@ -1,4 +1,6 @@
-<!-- ![Alt text](/client/assets/readwithme-logo.png "Learn With Me Logo") -->
+![Landing Page](http://i67.tinypic.com/10sde1s.png)
+![Dashboard](http://i68.tinypic.com/1zvrc5t.png)
+![Classroom](http://i64.tinypic.com/2yvqavk.png)
 
 ## Table of Contents 
 
@@ -36,6 +38,20 @@ Sign up for an account, and you will be up and running in no time!
 
 ### Installing Dependencies
 
+Ensure PostgresSQL installed. Create a database:
+```
+CREATE DATABASE classly;
+```
+Use the newly made database and run this query this user table:
+```
+CREATE TABLE students(id SERIAL PRIMARY KEY NOT NULL, firstname TEXT NOT NULL, lastname TEXT NOT NULL, email TEXT NOT NULL, stars INT NOT NULL, password TEXT NOT NULL);
+```
+
+On the server.js file be sure to change the following line to fit your username, port, and password of the database:
+```
+var db = pgp("postgres://danialsajjad:@127.0.0.1:5432/classly");
+```
+
 From the root directory run:
 ```
 npm install
@@ -66,7 +82,7 @@ npm test
 
 ## Architecture
 ### High Level Architecture
-
+![Architecture](http://i63.tinypic.com/2j0h92w.png)
 
 
 
