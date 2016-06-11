@@ -6,9 +6,10 @@ module.exports = {
         email: email,
         password: pass
     };
+    console.log('DATA on AUTH PAGE:', data);
     $.ajax({
-      url: 'http://localhost:8000/signin',
-      datatype: 'json',
+      url: 'http://localhost:8000/api/signin/',
+      dataType: 'json',
       data: data,
       type: 'POST',
       success: (data) => {
@@ -25,7 +26,7 @@ module.exports = {
   signup(data, cb){
   	console.log('woot');
     $.ajax({
-    	url: 'http://localhost:8000/signup',
+    	url: 'http://localhost:8000/api/signup/',
     	type: 'POST',
     	dataType: 'json',
     	data: data,

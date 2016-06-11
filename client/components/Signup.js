@@ -47,7 +47,8 @@ class Signup extends Component {
 				console.log('sending to server');
 				auth.signup(data, (resDB)=>{
 					console.log('signed up', resDB);
-					browserHistory.push('/dashboard');
+          const path = resDB.data[0].id + '/dashboard';
+					browserHistory.push(path);
 
 				})
 			}
@@ -66,12 +67,12 @@ class Signup extends Component {
 					placeholder="last name"
 					value = {this.state.lastName}
 					onChange ={(event) => this.setState({lastName: event.target.value})}/>
-        <input type="text"
+        <input type="password"
 					name="password"
 					placeholder="password"
 					value = {this.state.password}
 					onChange ={(event) => this.setState({password: event.target.value})}/>
-        <input type="text"
+        <input type="password"
 					name="passwordConfirm"
 					placeholder="confirm password"
 					value = {this.state.passwordConfirm}
@@ -81,7 +82,7 @@ class Signup extends Component {
 					placeholder="email"
 					value = {this.state.email}
 					onChange ={(event) => this.setState({email: event.target.value})}/>
-				<button className="submit-button" Click={this.handleSubmit.bind(this)}>Submit</button>
+				<button className="submit-button" onClick={this.handleSubmit.bind(this)}>Submit</button>
          <span className="signup-link" onClick={()=>this.props.fn()} activeClassName="active">already have an account ? <b>sign in</b></span>
       </div>
 		);
