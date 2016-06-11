@@ -17,6 +17,7 @@ import $ from 'jquery';
 import Chatbox from './Chatbox.js';
 import SaveCanvas from './SaveCanvas.js';
 import NotesCarousel from './NotesCarousel.js';
+import Auth from '../services/auth';
 
 class App extends Component {
   constructor(props) {
