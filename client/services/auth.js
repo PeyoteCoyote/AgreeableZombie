@@ -16,6 +16,7 @@ module.exports = {
         console.log('Data on Signin:', result);
         window.localStorage.setItem('com.classly', result.token);
         window.localStorage.setItem('email', data.email);
+        window.localStorage.setItem('id', result.id);
         if(cb){
         	cb(result);
         }
@@ -37,6 +38,7 @@ module.exports = {
     		console.log('result in Signup Page: ', result);
         window.localStorage.setItem('com.classly', result.token);
         window.localStorage.setItem('email', data.email);
+        window.localStorage.setItem('id', result.id);
     		if(cb){
           cb(result);
         }

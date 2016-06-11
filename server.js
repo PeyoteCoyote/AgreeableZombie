@@ -122,6 +122,7 @@ router.route('/signup')
 router.route('/signin') //Todo: query database for unique user's settings/notes
   .post((req, res) => {
     var data = req.body;
+    console.log('<><><><><REQ BODY>>', req.body);
     db.query('SELECT * FROM students WHERE email=${email}', {
         email: data.email
       })
@@ -156,6 +157,19 @@ router.route('/signin') //Todo: query database for unique user's settings/notes
         console.error('Error:', err);
       });
   }); //Closes 'get'
+
+  router.route('/signedin')
+    .post((req, res) => {
+      //decode token 
+      console.log(req.headers);
+        helpers.decode(req, res, function() {
+          console.log('<<<<<<<>>>>>>>>>>>SENT');
+          res.json({message: 'Hello from the other side'});
+        })
+        //if valid allow user access to dash
+        //else send back to signin
+    });
+
 
 //Route for images
 router.route('/user/:user_id/images')
