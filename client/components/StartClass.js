@@ -8,8 +8,7 @@ class StartClass extends Component{
   render() {
     return (
       <div>
-          <Link to = {{ pathname: "/classroom/"+this.props.room, state:{message: 'hello dan'}}} className= "startclass student">Student</Link>
-					  <Link to = {{ pathname: "/classroom/"+this.props.room, state:{message: 'hello dan'}}} className= "startclass">Teacher</Link>
+          <Link to = {{ pathname: "/classroom/"+this.props.room, state:{message: 'hello dan'}}} className= "startclass">Classroom {this.props.room}</Link>
       </div>
     );
   }

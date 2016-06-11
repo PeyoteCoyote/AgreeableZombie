@@ -23,7 +23,8 @@ h1 {
   margin-bottom: 10px;
   letter-spacing: 1px;
   background-color: black;
-  padding:5px;
+  padding: 5px;
+  padding-left: 17px;
 }
 h2 {
   margin: 0px;
@@ -32,6 +33,11 @@ h2 {
   font-weight: 500;
   letter-spacing: 1px;
   padding-left: 10px;
+}
+
+h3 {
+  color: white;
+  font-size: 15px;
 }
 
 span.title-underline {
@@ -389,20 +395,30 @@ ul.drawingtoolslist li button {
 /* ------------------------------------------ dashboard*/
 
 .startclass {
-  position: absolute;
-top: 250px;
-left: 400px;
-right: 400;
 color: black;
 background-color: rgb(255, 223, 0);
 padding: 20px;
-width: 200px;
+width: 300px;
 text-align: center;
 text-decoration: none;
 font-weight: bold;
 letter-spacing: 1px;
 }
 
-.student {
-  left: 700px;
+.dashboardcontainer{
+  margin-top: 200px;
+}
+
+.startclasscontainer {
+  margin-top: 50px;
+  text-align: center;
+  width: 300px;
+}
+
+.aclass {
+  float:left;
+}
+
+.bclass {
+  float:right;
 }
