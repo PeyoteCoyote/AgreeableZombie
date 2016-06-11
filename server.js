@@ -5,7 +5,7 @@ var server = require('http').Server(app);
 var io = require('socket.io')(server);
 var bodyParser = require('body-parser');
 var pgp = require("pg-promise")();
-var db = pgp("postgres://danialsajjad:@127.0.0.1:5432/classly");
+var db = pgp("postgres://kentlee:@127.0.0.1:5432/classly");
 var bcrypt = require('bcrypt');
 var jwt = require('jwt-simple');
 var helpers = require('./helpers');
@@ -100,7 +100,7 @@ router.route('/signup')
                     .then((info) => {
                       console.log('<><><INFO><><><>', info);
                         var token = jwt.encode(info, 'secret');
-                        res.json({token: token, id: info[0].id});
+                        res.json({token: token, id: info[0].id, firstname: info[0].firstname});
                     })
                     .catch((error) => {
                       console.error('Error:', error);
@@ -139,7 +139,7 @@ router.route('/signin') //Todo: query database for unique user's settings/notes
               console.log('Match successful');
               console.log(database[0]);
               var token = jwt.encode(database[0], 'secret');
-              res.json({token: token, id: database[0].id});
+              res.json({token: token, id: database[0].id, firstname: database[0].firstname});
             } else {
               res.writeHead(404);
               res.json({
@@ -210,23 +210,27 @@ app.get('/token', (req, res) => {
 
 // draw history for canvas
 var drawHistory = [];
+var roomName = '';
 
 // Socket.IO Connection
 io.on('connection', (socket) => {
+  
+  socket.on('room', (data) =>{
+    roomName = data;
+    //Only sends connection to roomname
+    socket.join(roomName);
+  });
+  
   console.log('a user connected');
-  socket.on('NextButtonClick', (data) => {
-    console.log('inside server');
-    io.emit('next page', data);
-  });
-  socket.on('PrevButtonClick', (data) => {
-    io.emit('prev page', data);
-  });
+  
   socket.on('disconnect', () => {
     console.log('user disconnected');
   });
+
   socket.on('send:message', function(data) { //chatbox
     console.log('message ' + data.text);
-    io.emit('send:message', {
+    console.log('ROOMNAME on SERVER.js FILE:', roomName);
+    io.to(roomName).emit('send:message', {
       text: data.text
     });
   });
@@ -241,17 +245,17 @@ io.on('connection', (socket) => {
       line: data.line
     };
     drawHistory.push(newLine);
-    io.emit('drawLine', newLine);
+    io.to(roomName).emit('drawLine', newLine);
   });
 
   socket.on('clearCanvas', () => {
     //listen to clearCanvas
     drawHistory.length = 0;
-    io.emit('clearCanvas', drawHistory);
+    io.to(roomName).emit('clearCanvas', drawHistory);
     // empty the drawHistory and send it back to client
   });
 
-});
+}); //Closes socket.io connection
 
 // If a request is sent somewhere other than the routes above,
 // send it through our custom error handler
