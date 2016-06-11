@@ -5,9 +5,10 @@ var server = require('http').Server(app);
 var io = require('socket.io')(server);
 var bodyParser = require('body-parser');
 var pgp = require("pg-promise")();
-var db = pgp("postgres://esthercuan:@127.0.0.1:5432/classly");
+var db = pgp("postgres://danialsajjad:@127.0.0.1:5432/classly");
 var bcrypt = require('bcrypt');
 var jwt = require('jwt-simple');
+var helpers = require('./helpers');
 
 var router = express.Router();
 
@@ -97,10 +98,8 @@ router.route('/signup')
                       email: data.email
                     })
                     .then((info) => {
-                      res.json({
-                        message: 'user created',
-                        data: info
-                      });
+                        var token = jwt.encode(info, 'secret');
+                        res.json({token: token});
                     })
                     .catch((error) => {
                       console.error('Error:', error);
@@ -136,10 +135,11 @@ router.route('/signin') //Todo: query database for unique user's settings/notes
             console.log('Matching password');
             if (samePW) {
               console.log('Match successful');
-              res.json({
-                response: 'match successful',
-              });
+              console.log(database[0]);
+              var token = jwt.encode(database[0], 'secret');
+              res.json({token: token});
             } else {
+              res.writeHead(404);
               res.json({
                 response: 'invalid email/password combination'
               });
@@ -237,6 +237,11 @@ io.on('connection', (socket) => {
   });
 
 });
+
+// If a request is sent somewhere other than the routes above,
+// send it through our custom error handler
+app.use(helpers.errorLogger);
+app.use(helpers.errorHandler);
 
 server.listen(port, (err) => {
   if (err) {
