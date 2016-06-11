@@ -5,7 +5,7 @@ var server = require('http').Server(app);
 var io = require('socket.io')(server);
 var bodyParser = require('body-parser');
 var pgp = require("pg-promise")();
-var db = pgp("postgres://kentlee:@127.0.0.1:5432/classly");
+var db = pgp("postgres://esthercuan:@127.0.0.1:5432/classly");
 var bcrypt = require('bcrypt');
 var jwt = require('jwt-simple');
 var helpers = require('./helpers');
@@ -160,7 +160,7 @@ router.route('/signin') //Todo: query database for unique user's settings/notes
 
   router.route('/signedin')
     .post((req, res) => {
-      //decode token 
+      //decode token
       console.log(req.headers);
         helpers.decode(req, res, function() {
           console.log('<<<<<<<>>>>>>>>>>>SENT');
@@ -214,15 +214,15 @@ var roomName = '';
 
 // Socket.IO Connection
 io.on('connection', (socket) => {
-  
+
   socket.on('room', (data) =>{
     roomName = data;
     //Only sends connection to roomname
     socket.join(roomName);
   });
-  
+
   console.log('a user connected');
-  
+
   socket.on('disconnect', () => {
     console.log('user disconnected');
   });
@@ -230,7 +230,7 @@ io.on('connection', (socket) => {
   socket.on('send:message', function(data) { //chatbox
     console.log('message ' + data.text);
     console.log('ROOMNAME on SERVER.js FILE:', roomName);
-    io.to(roomName).emit('send:message', {
+    io.emit('send:message', {
       text: data.text
     });
   });
@@ -245,13 +245,13 @@ io.on('connection', (socket) => {
       line: data.line
     };
     drawHistory.push(newLine);
-    io.to(roomName).emit('drawLine', newLine);
+    io.emit('drawLine', newLine);
   });
 
   socket.on('clearCanvas', () => {
     //listen to clearCanvas
     drawHistory.length = 0;
-    io.to(roomName).emit('clearCanvas', drawHistory);
+    io.emit('clearCanvas', drawHistory);
     // empty the drawHistory and send it back to client
   });
 
