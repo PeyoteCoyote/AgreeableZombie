@@ -22,7 +22,7 @@ class Signin extends Component {
   handleSubmit() {
     // -------------- validation
     const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-
+    console.log('SIGNING IN');
     if (this.state.email === '' || !re.test(this.state.email)) {
       console.log('INVALID EMAIL');
       this.setState({
@@ -41,7 +41,9 @@ class Signin extends Component {
     // -------------- end validation
 
     // check if all fields are valid before sending off the request
-    if(this.state.email !== '' && re.test(this.state.email) && this.state.password !== ''){
+    else {
+      console.log('INSIDE ELSE STATEMENT');
+    // if(this.state.email !== '' && re.test(this.state.email) && this.state.password !== ''){
       // var data = {
       //   email: this.state.email,
       //   password: this.state.password
@@ -72,14 +74,14 @@ class Signin extends Component {
         <input type="text"
                name="email"
                placeholder="email"
-               onChange = {this.handleEmail.bind(this)}
-               value = {this.state.email} />
-        <input type="text"
+               onChange={this.handleEmail.bind(this)}
+               value={this.state.email} />
+        <input type="password"
                name="password"
                placeholder="password"
-               onChange = {this.handlePassword.bind(this)}
-               value = {this.state.password} />
-             <button className= "submit-button" onClick={this.handleSubmit.bind(this)}>Submit</button>
+               onChange={this.handlePassword.bind(this)}
+               value={this.state.password} />
+             <button className="submit-button" onClick={this.handleSubmit.bind(this)}>Submit</button>
         <span className="signup-link" onClick={()=>this.props.fn()} activeClassName="active">not a user? <b>sign up</b></span>
       </div>
     );

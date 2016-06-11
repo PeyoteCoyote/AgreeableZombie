@@ -47,7 +47,8 @@ class Signup extends Component {
 				console.log('sending to server');
 				auth.signup(data, (resDB)=>{
 					console.log('signed up', resDB);
-					browserHistory.push('/dashboard');
+          const path = resDB.data[0].id + '/dashboard';
+					browserHistory.push(path);
 
 				})
 			}
@@ -66,12 +67,12 @@ class Signup extends Component {
 					placeholder="last name"
 					value = {this.state.lastName}
 					onChange ={(event) => this.setState({lastName: event.target.value})}/>
-        <input type="text"
+        <input type="password"
 					name="password"
 					placeholder="password"
 					value = {this.state.password}
 					onChange ={(event) => this.setState({password: event.target.value})}/>
-        <input type="text"
+        <input type="password"
 					name="passwordConfirm"
 					placeholder="confirm password"
 					value = {this.state.passwordConfirm}

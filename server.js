@@ -51,49 +51,109 @@ app.use(express.static(__dirname + '/client'));
 var port = process.env.PORT || 8000;
 
 //Home API page
-router.get('/',(req, res) => {
-  res.json({ message: 'hooray! welcome to our api!' });   
+router.get('/', (req, res) => {
+  res.json({
+    message: 'hooray! welcome to our api!'
+  });
+});
+
+//Triggers whenever a param route is received; calls db for user information
+router.param('user_id', (req, res, next, id) => {
+  db.query('SELECT * from students where id=${id}')
 });
 
 //Route when a user signs up (signup page)
 router.route('/signup')
   .post((req, res) => {
+
     var data = req.body;
-    //Creates a new user in our database
-    db.query('INSERT INTO students (firstname, lastname, email, stars, password) VALUES (${firstName}, ${lastName}, ${email}, ${stars}, ${password})', {firstName: data.firstName, lastName: data.lastName, password: data.password, email: data.email, stars: 0})
-    .then((data) => {
-      console.log('Successfully inserted user');
-      res.json('user created');
-    })
-    .catch((err) => {
-      console.error('Error creating user in database');
-      res.json('database error');
-    });
-  })
-  .get((req,res) => {
-    console.log('hello');
-    db.query('SELECT * FROM students')
-    .then((data) => {
-      console.log('GOT ALL STUDENTS:', data);
-      res.json(data);
-    }) 
-    .catch((err) => {
-      console.log('Error', err);
-    });
+    //Check database if the email exists
+    db.query('SELECT * FROM students WHERE email = ${email}', {
+        email: data.email
+      })
+      .then((result) => {
+        if (result.length === 0) {
+          //Password salting and hashing
+          bcrypt.genSalt(saltRounds, (err, salt) => {
+            if (err) {
+              console.log('Error salting password', err);
+            }
+            bcrypt.hash(data.password, salt, (err, hash) => {
+              if (err) {
+                console.log('Error hashing password:', err);
+              }
+              //Creates a new user in our database
+              db.query('INSERT INTO students (firstname, lastname, email, stars, password) VALUES (${firstName}, ${lastName}, ${email}, ${stars}, ${password})', {
+                  firstName: data.firstName,
+                  lastName: data.lastName,
+                  password: hash,
+                  email: data.email,
+                  stars: 0
+                })
+                .then(() => {
+                  console.log('Successfully inserted user');
+                  db.query('SELECT * from students WHERE email=${email}', {
+                      email: data.email
+                    })
+                    .then((info) => {
+                      res.json({
+                        message: 'user created',
+                        data: info
+                      });
+                    })
+                    .catch((error) => {
+                      console.error('Error:', error);
+                    });
+                })
+                .catch((err) => {
+                  console.error('Error creating user in database');
+                  res.json('database error');
+                });
+            });
+          });
+        } else {
+          res.json('email already exists');
+        }
+      });
   });
 
 //Route for user to sign in
-router.route('/signin/:user_id')  //Todo: query database for unique user's settings/notes
-  .get((req, res) => {
-    console.log('REQUEST PARAMS:', req.body);
-    db.query('SELECT * FROM students WHERE email=${email}', {email: 'kentqlee@gmail.com'})
-    .then((data) => {
-      res.json(data);
-    })
-    .catch((err) => {
-      console.error('Error:', err);
-    });
-  });
+router.route('/signin') //Todo: query database for unique user's settings/notes
+  .post((req, res) => {
+    var data = req.body;
+    db.query('SELECT * FROM students WHERE email=${email}', {
+        email: data.email
+      })
+      .then((database) => {
+
+        if (database.length > 0) {
+          //Compare hashed password with database
+          bcrypt.compare(data.password, database[0].password, (err, samePW) => {
+            if (err) {
+              console.log('Error in comparing bcrypt passwords', err);
+            }
+            console.log('Matching password');
+            if (samePW) {
+              console.log('Match successful');
+              res.json({
+                response: 'match successful',
+              });
+            } else {
+              res.json({
+                response: 'invalid email/password combination'
+              });
+            }
+          });
+        } else {
+          res.json({
+            response: 'invalid email/password combination'
+          });
+        }
+      })
+      .catch((err) => {
+        console.error('Error:', err);
+      });
+  }); //Closes 'get'
 
 //Route for images
 router.route('/user/:user_id/images')
@@ -105,79 +165,6 @@ router.route('/user/:user_id/images')
 
 //Use the router in the application
 app.use('/api', router);
-
-
-
-//Signup page
-// app.post('/signup', (req, res) => {
-//   console.log('hallo');
-//   var data = req.body;
-//   console.log('DATA BEING RECEIVED IN POSTMAN:', data);
-//   //Check database if the email exists
-//   db.query('SELECT * FROM students WHERE email = ${email}', {email: data.email})
-//   .then((result) => {
-//     console.log('RESULT FROM EMAIL IN SERVER:', result);
-//     //If the user email does not exist in the database
-//     if (result.length === 0) {
-//       //Password salting and hashing
-//       bcrypt.genSalt(saltRounds, (err, salt) => {
-//         if (err) {
-//           console.log('Error salting password', err);
-//         }
-//         bcrypt.hash(data.password, salt, (err, hash) => {
-//           if (err) {
-//             console.log('Error hashing password:', err);
-//           }
-//           db.query('INSERT INTO students (firstname, lastname, email, stars, password) VALUES (${firstName}, ${lastName}, ${email}, ${stars}, ${password})', {firstName: data.firstName, lastName: data.lastName, password: hash, email: data.email, stars: 0})
-//           .then((data) => {
-//             console.log('Successfully inserted user');
-//             res.json('user created');
-//           })
-//           .catch((err) => {
-//             console.error('Error creating user in database');
-//             res.json('database error');
-//           });
-//         });
-//       });
-//     } else {
-//       res.json('email already exists');
-//     }
-//   })
-//   .catch((err) => {
-//     console.error('ERROR ON READING DATABASE:', err);
-//   });
-// });
-
-//Signin page
-app.post('/signin', (req, res) => {
-  //Check the database for the email and password
-  var data = req.body;
-  console.log('data is:',data);
-  db.query('SELECT * from students where email = ${email}', {email: data.email})
-  .then((database) => {
-    console.log('data found on db is:', database);
-    if (database.length > 0) {
-      //Compare hashed password with database
-      bcrypt.compare(data.password, database[0].password, (err, samePW) => {
-        if (err) {
-          console.log('Error in comparing bcrypt passwords', err);
-        }
-        console.log('Matching password');
-        if (samePW) {
-          console.log('Match successful');
-          res.json({response: 'match successful'});
-        } else {
-          res.json({response: 'invalid email/password combination'});
-        }
-      });
-    } else {
-      res.json({response: 'invalid email/password combination'});
-    }
-  })
-  .catch((err) => {
-    console.log('Error signing in', err);
-  });
-});
 
 // Twilio token request
 app.get('/token', (req, res) => {
@@ -212,7 +199,7 @@ var drawHistory = [];
 io.on('connection', (socket) => {
   console.log('a user connected');
   socket.on('NextButtonClick', (data) => {
-    console.log ('inside server');
+    console.log('inside server');
     io.emit('next page', data);
   });
   socket.on('PrevButtonClick', (data) => {
@@ -221,20 +208,22 @@ io.on('connection', (socket) => {
   socket.on('disconnect', () => {
     console.log('user disconnected');
   });
-  socket.on('send:message', function (data) { //chatbox
+  socket.on('send:message', function(data) { //chatbox
     console.log('message ' + data.text);
     io.emit('send:message', {
-        text: data.text
+      text: data.text
     });
   });
 
   //Socket Events for Canvas interactions
-  for(var i in drawHistory){
+  for (var i in drawHistory) {
     socket.emit('drawLine', drawHistory[i]);
   }
 
   socket.on('drawLine', data => {
-    var newLine = {line: data.line};
+    var newLine = {
+      line: data.line
+    };
     drawHistory.push(newLine);
     io.emit('drawLine', newLine);
   });

@@ -18,7 +18,6 @@ import Chatbox from './Chatbox.js';
 import SaveCanvas from './SaveCanvas.js';
 import NotesCarousel from './NotesCarousel.js';
 
-
 class App extends Component {
   constructor(props) {
     super(props);
@@ -77,6 +76,7 @@ class App extends Component {
               <div id='center'><Background />
               <Chatbox />
               <NotesCarousel />
+              <DrawingBoard />
               <div id='left-button'><SaveCanvas clickHandler={this.onClickSnapshot}/></div>              
               </div>
             </div>
