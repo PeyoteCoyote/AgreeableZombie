@@ -98,8 +98,9 @@ router.route('/signup')
                       email: data.email
                     })
                     .then((info) => {
+                      console.log('<><><INFO><><><>', info);
                         var token = jwt.encode(info, 'secret');
-                        res.json({token: token});
+                        res.json({token: token, id: info[0].id});
                     })
                     .catch((error) => {
                       console.error('Error:', error);
@@ -137,7 +138,7 @@ router.route('/signin') //Todo: query database for unique user's settings/notes
               console.log('Match successful');
               console.log(database[0]);
               var token = jwt.encode(database[0], 'secret');
-              res.json({token: token});
+              res.json({token: token, id: database[0].id});
             } else {
               res.writeHead(404);
               res.json({
