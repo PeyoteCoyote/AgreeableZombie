@@ -1,22 +1,22 @@
 import React, { PropTypes, Component } from 'react';
- import ImageGallery from 'react-image-gallery';
-  
+import ImageGallery from 'react-image-gallery';
+
  class NotesCarousel extends React.Component {
-  
+
    handleImageLoad(event) {
      console.log('Image loaded ', event.target)
    }
-  
+
    handlePlay() {
      this._imageGallery.play()
    }
-  
+
    handlePause() {
      this._imageGallery.pause()
    }
-  
+
    render() {
-  
+
      const images = [
        {
          original: 'http://lorempixel.com/1000/600/nature/1/',
@@ -38,7 +38,7 @@ import React, { PropTypes, Component } from 'react';
          thumbnail: 'http://lorempixel.com/250/150/nature/3/'
        }
      ]
-  
+
      return (
        <div>
          <button onClick={this.handlePlay.bind(this)}>Play</button>
@@ -51,7 +51,7 @@ import React, { PropTypes, Component } from 'react';
        </div>
      );
    }
-  
+
  }
- 
+
  export default NotesCarousel;

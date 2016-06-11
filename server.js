@@ -5,7 +5,7 @@ var server = require('http').Server(app);
 var io = require('socket.io')(server);
 var bodyParser = require('body-parser');
 var pgp = require("pg-promise")();
-var db = pgp("postgres://rodaan:@127.0.0.1:5432/classly");
+var db = pgp("postgres://esthercuan:@127.0.0.1:5432/classly");
 var bcrypt = require('bcrypt');
 var jwt = require('jwt-simple');
 
@@ -60,6 +60,7 @@ router.get('/', (req, res) => {
 //Triggers whenever a param route is received; calls db for user information
 router.param('user_id', (req, res, next, id) => {
   db.query('SELECT * from students where id=${id}')
+
 });
 
 //Route when a user signs up (signup page)
