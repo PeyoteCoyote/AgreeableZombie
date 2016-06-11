@@ -12,10 +12,12 @@ module.exports = {
       dataType: 'json',
       data: data,
       type: 'POST',
-      success: (data) => {
-        console.log('Data on Signin:', data);
+      success: (result) => {
+        console.log('Data on Signin:', result);
+        window.localStorage.setItem('com.classly', result.token);
+        window.localStorage.setItem('email', data.email);
         if(cb){
-        	cb(data);
+        	cb(result);
         }
       },
       error: (xhr, status, err) => {
@@ -23,6 +25,7 @@ module.exports = {
       }
 	  });
 	},
+
   signup(data, cb){
   	console.log('woot');
     $.ajax({
@@ -30,11 +33,12 @@ module.exports = {
     	type: 'POST',
     	dataType: 'json',
     	data: data,
-    	success: (data) => {
-    		console.log('DATA in Signup Page: ', data);
-    		// this.setState({
+    	success: (result) => {
+    		console.log('result in Signup Page: ', result);
+        window.localStorage.setItem('com.classly', result.token);
+        window.localStorage.setItem('email', data.email);
     		if(cb){
-          cb(data);
+          cb(result);
         }
     		// });
     	},
@@ -43,6 +47,35 @@ module.exports = {
     	}
     });
   },
+
+  signedin(data, cb) {
+    console.log('signedin');
+    $.ajax({
+      url: 'http://localhost:8000/api/signedin', 
+      type: 'POST', 
+      dataType: 'json', 
+      data: data,
+      success: (data) => {
+        if(cb) {
+          cb(data);
+        }
+      },
+      error: (xhr, status, err) => {
+        console.error('Error passing to server', status, err.toString());
+      }
+    });
+  },
+
+  // attachToken() {
+  //   var jwt = $window.localStorage.getItem('com.classly');
+  //   var attach = {
+  //     if (jwt) {
+  //       object.headers['x-access-token'] = jwt;
+  //     }
+  //     object.headers['Allow-Control-Allow-Origin'] = '*';
+  //     return object;
+  //   }         
+  // }    
 	getToken(){
 		return localStorage.token;
 	},
@@ -58,6 +91,7 @@ module.exports = {
   loggedIn(){
   	return !!localStorage.token;
   },
+
   onChange(){}
 
 }
