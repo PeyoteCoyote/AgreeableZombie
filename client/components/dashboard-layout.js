@@ -12,8 +12,8 @@ class DashboardLayout extends Component {
   render() {
     return (
       <div className="Dashboard">
-        <StartClass/>
-        <h1>this.props.path: {this.props.path}</h1>
+        <StartClass room='A'/>
+        <StartClass room='B'/>
       </div>
     );
   }
