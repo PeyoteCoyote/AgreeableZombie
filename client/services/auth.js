@@ -17,6 +17,7 @@ module.exports = {
         window.localStorage.setItem('com.classly', result.token);
         window.localStorage.setItem('email', data.email);
         window.localStorage.setItem('id', result.id);
+        window.localStorage.setItem('firstname', result.firstname);
         if(cb){
         	cb(result);
         }
@@ -39,6 +40,7 @@ module.exports = {
         window.localStorage.setItem('com.classly', result.token);
         window.localStorage.setItem('email', data.email);
         window.localStorage.setItem('id', result.id);
+        window.localStorage.setItem('firstname', result.firstname);
     		if(cb){
           cb(result);
         }

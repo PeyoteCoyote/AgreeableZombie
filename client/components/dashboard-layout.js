@@ -34,8 +34,8 @@ class DashboardLayout extends Component {
     if(window.localStorage.getItem('com.classly')) {
       Auth.signedin({token: window.localStorage.getItem('com.classly'), email: window.localStorage.getItem('email')}, function(result) {
         console.log('Result from componentWillMount dash', result);
-        const path = window.localStorage.getItem('id')+ '/dashboard';
-        browserHistory.push(path);
+        // const path = window.localStorage.getItem('id')+ '/dashboard';
+        // browserHistory.push(path);
 
       });
     } else {

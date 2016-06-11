@@ -47,10 +47,10 @@ class Signup extends Component {
 				console.log('sending to server');
 				auth.signup(data, (resDB)=>{
 					console.log('++++++++++signed up', resDB);
-          const path = resDB.id + '/dashboard';
-					browserHistory.push(path);
-
-				})
+          // const path = resDB.id + '/dashboard';
+					// browserHistory.push(path);
+          auth.signedin();
+				});
 			}
 	}
 

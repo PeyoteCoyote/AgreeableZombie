@@ -17,7 +17,7 @@ export default (
     <Route component={MainLayout}>
       <Route path="/" component={LandingLayout}><Landing/></Route>
       <Route path="*/dashboard" component={DashboardLayout}><StartClass/></Route>
-      <Route path="*/classroom/*" component={ClassroomLayout}></Route>
+      <Route path="classroom/*" component={ClassroomLayout}></Route>
     </Route>
   </Router>
 );

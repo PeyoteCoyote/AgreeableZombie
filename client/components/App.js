@@ -24,29 +24,23 @@ class App extends Component {
     super(props);
 
     this.state = {
-      pageCounter: 0,
-      bookTitle: '',
-      bookData: [],
-      author: 'Eric Carle'
+      roomId: null
     };
-
-    socket.on('prev page', (data) => {
-      console.log ('data from server', data);
-      this.setState({msg: data.msg});
-      this.setState({pageCounter: data.pageCounter});
-    });
-
-    socket.on('next page', (data) => {
-      this.setState({msg: data.msg});
-      this.setState({pageCounter: data.pageCounter});
-    });
   }
+
   componentWillMount() {
     var app = this;
+    var pathway = window.location.pathname.split('/');
+    var roomId = pathway[pathway.length - 1];
+    this.setState({
+      roomId: roomId
+    });
   }
 
   componentDidMount() {
     this.render();
+    var room = this.state.roomId;
+    socket.emit('room', room);
   }
 
  onClickSnapshot() {
@@ -69,9 +63,9 @@ class App extends Component {
   render() {
      return (
           <div className = "container">
-            <div className="webcam"><WebCam conversation={this.state.conversation}/></div>
-            <div className="chatbox"><Wrapper /></div>
-            <div className="drawingtools"><DrawingTools clickHandler={this.onClickSnapshot}/></div>
+            <div className="webcam"><WebCam roomId={this.state.roomId} conversation={this.state.conversation}/></div>
+            <div className="chatbox"><Wrapper roomId={this.state.roomId}/></div>
+            <div className="drawingtools"><DrawingTools roomId={this.state.roomId} clickHandler={this.onClickSnapshot}/></div>
           </div>
         );
   }
