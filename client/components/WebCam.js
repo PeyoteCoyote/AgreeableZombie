@@ -13,7 +13,8 @@ class WebCam extends React.Component {
       activeConversation: undefined,
       previewMedia: undefined,
       identity: undefined,
-      message: undefined
+      message: undefined,
+      webcamOn: false
     };
 
     var conversationsClient = this.state.conversationsClient;
@@ -117,7 +118,7 @@ class WebCam extends React.Component {
   }
 
   handlePreview(e) {
-    if(!this.state.previewMedia){
+    if(!this.state.webcamOn){
       var preview = new Twilio.Conversations.LocalMedia();
       Twilio.Conversations.getUserMedia().then(
         function (mediaStream) {
@@ -128,7 +129,7 @@ class WebCam extends React.Component {
             console.error('Unable to access local media', error);
         });
 
-      this.setState({previewMedia: preview});
+      this.setState({previewMedia: preview, webcamOn: true});
     }
   }
 

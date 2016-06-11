@@ -5,7 +5,7 @@ var server = require('http').Server(app);
 var io = require('socket.io')(server);
 var bodyParser = require('body-parser');
 var pgp = require("pg-promise")();
-var db = pgp("postgres://esthercuan:@127.0.0.1:5432/classly");
+var db = pgp("postgres://kentlee:@127.0.0.1:5432/classly");
 var bcrypt = require('bcrypt');
 var jwt = require('jwt-simple');
 var helpers = require('./helpers');
@@ -52,7 +52,7 @@ app.use(express.static(__dirname + '/client'));
 var port = process.env.PORT || 8000;
 
 //Home API page
-router.get('/', (req, res) => {
+router.get('*', (req, res) => {
   res.json({
     message: 'hooray! welcome to our api!'
   });
@@ -261,6 +261,10 @@ io.on('connection', (socket) => {
 // send it through our custom error handler
 app.use(helpers.errorLogger);
 app.use(helpers.errorHandler);
+
+app.get('*', (req, res) => {
+  res.redirect('/');
+});
 
 server.listen(port, (err) => {
   if (err) {
