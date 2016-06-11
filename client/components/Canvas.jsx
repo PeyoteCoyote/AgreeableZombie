@@ -57,7 +57,7 @@ class Canvas extends React.Component {
     var boundingRect = document.getElementsByClassName('whiteboard')[0].getBoundingClientRect();
 
     canvas.onmousemove = e => {
-      var mx = e.clientX + 260;
+      var mx = e.clientX + 239;
       var my = e.clientY + 70;
       console.log("MOUSE",mx, my);
       this.setState({
