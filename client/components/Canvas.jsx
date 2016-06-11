@@ -36,15 +36,15 @@ class Canvas extends React.Component {
     socket.on('clearCanvas', data => {
       var context = this.state.context;
       context.clearRect(0, 0, canvas.width, canvas.height);
-      
+
     });
   }
 
   componentDidMount() {
     var canvas = this.refs.canvas;
     var context = canvas.getContext('2d');
-    canvas.width = document.getElementsByClassName('background')[0].clientWidth;
-    canvas.height = document.getElementsByClassName('background')[0].clientHeight;
+    canvas.width = document.getElementsByClassName('whiteboard')[0].clientWidth;
+    canvas.height = document.getElementsByClassName('whiteboard')[0].clientHeight;
 
     canvas.onmousedown = e => {
       this.setState({click:true});
@@ -54,12 +54,12 @@ class Canvas extends React.Component {
       this.setState({click:false});
     };
 
-    var boundingRect = document.getElementsByClassName('background')[0].getBoundingClientRect();
+    var boundingRect = document.getElementsByClassName('whiteboard')[0].getBoundingClientRect();
 
     canvas.onmousemove = e => {
-      var mx = e.clientX;
-      var my = e.clientY;
-
+      var mx = e.clientX + 260;
+      var my = e.clientY + 70;
+      console.log("MOUSE",mx, my);
       this.setState({
         move: true,
         pos: {x:mx, y:my}
@@ -86,7 +86,7 @@ class Canvas extends React.Component {
   render() {
     return (
       <div className="canvas-container">
-        <canvas id="canvas" ref="canvas" className="canvas"></canvas>
+        <canvas id="canvas" ref="canvas" className="whiteboard"></canvas>
       </div>
     );
   }
