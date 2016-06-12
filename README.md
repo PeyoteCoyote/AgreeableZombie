@@ -18,8 +18,6 @@
 - Webpack
 - Socket.io
 - Twilio API
-- Gmail API
-- Nodemailer
 
 ### Description
 *Learn With Me* is an interactive application that allows users to watch screencast lessons, chat directly with the lecturer, and whiteboard their personal notes, creating the full classroom experience remotely.
@@ -69,7 +67,7 @@ TWILIO_API_KEY=''
 TWILIO_API_SECRET=''
 TWILIO_CONFIGURATION_SID=''
 ```
-
+Fill out the above with the information you received from Twilio.
 
 ### Testing
 Client side testing is implemented with Karma and Airbnb's Enzyme framework. Developers can pinpoint the source of their errors's using Enzyme's shallow rendering and Karma's sourcemap. Server side testing is implement with Supertest and Chai.
@@ -85,6 +83,20 @@ npm test
 ![Architecture](http://i63.tinypic.com/2j0h92w.png)
 
 
+# Future Road Map
+- Implement email notification on signup
+- Save notes on dashboard and show last 5 notes on classroom page
+- Develop course creation
+- Ability to rate teachers and students
+- Payment processing
+- Separate teacher and student portals
+- Scheduling capabilities for teacher office hours and email notification for appointments
+- Recording of session and accessing sessions on dashboard
+- Teacher and student profile
+- Camera rotation
+- LinkedIn OAuth for teachers
+- Subscribing to teachers
+- Integration with Google calendar
 
 ## Team Members
 
